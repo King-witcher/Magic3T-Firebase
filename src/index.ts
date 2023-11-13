@@ -7,7 +7,7 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-import { HttpsError } from 'firebase-functions/v2/https'
+import { HttpsError, onRequest } from 'firebase-functions/v2/https'
 import * as logger from 'firebase-functions/logger'
 import {
   beforeUserCreated,
@@ -15,6 +15,10 @@ import {
 } from 'firebase-functions/v2/identity'
 import { firestore } from './firestore'
 import * as functions from 'firebase-functions'
+import { getConverter } from './getConverter'
+import { UserData, userConverter, usersCollection } from './models/User'
+import { Timestamp } from 'firebase-admin/firestore'
+import { getUserPhotos } from './scripts/getUserPhotos'
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -22,17 +26,56 @@ import * as functions from 'firebase-functions'
 export const beforeCreate = beforeUserCreated(async (event) => {
   await firestore
     .collection('users')
+    .withConverter(userConverter)
     .doc(event.data.uid)
     .create({
-      nickname: event.data.displayName,
+      nickname: event.data.displayName || '',
+      photoUrl: event.data.photoURL || '',
       role: 'player',
       glicko: {
         rating: 1500,
-        deviation: 350,
-        timestamp: new Date(),
+        deviation: 200,
+        timestamp: Timestamp.now(),
       },
     })
   logger.info(`${event.data.displayName} has created an account.`)
+})
+
+export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
+  if (req.method !== 'POST') return
+
+  const snap = await usersCollection.get()
+  await Promise.all(
+    snap.docs.map((user) =>
+      usersCollection.doc(user.id).update({
+        glicko: {
+          deviation: 200,
+          rating: 1500,
+          timestamp: Timestamp.now(),
+        },
+      }),
+    ),
+  )
+  res.send({
+    status: 'OK',
+    message: 'Hard rating reset successful',
+  })
+})
+
+export const deleteHistory = onRequest({ cors: ['*'] }, async (req, res) => {
+  if (req.method !== 'DELETE') return
+
+  const snap = await firestore.collection('matches').get()
+  await Promise.all(
+    snap.docs.map((doc) =>
+      firestore.collection('matches').doc(doc.id).delete(),
+    ),
+  )
+
+  res.send({
+    status: 'OK',
+    message: 'All matches were deleted',
+  })
 })
 
 export const beforeSignIn = beforeUserSignedIn(async (event) => {
