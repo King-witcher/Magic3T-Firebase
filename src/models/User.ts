@@ -15,6 +15,6 @@ export type UserData = {
     deviation: number
     timestamp: Timestamp
   }
-  photoUrl: string
+  photoURL: string
   role: 'player' | 'admin'
 }

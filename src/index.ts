@@ -15,8 +15,7 @@ import {
 } from 'firebase-functions/v2/identity'
 import { firestore } from './firestore'
 import * as functions from 'firebase-functions'
-import { getConverter } from './getConverter'
-import { UserData, userConverter, usersCollection } from './models/User'
+import { userConverter, usersCollection } from './models/User'
 import { Timestamp } from 'firebase-admin/firestore'
 import { getUserPhotos } from './scripts/getUserPhotos'
 
@@ -30,7 +29,7 @@ export const beforeCreate = beforeUserCreated(async (event) => {
     .doc(event.data.uid)
     .create({
       nickname: event.data.displayName || '',
-      photoUrl: event.data.photoURL || '',
+      photoURL: event.data.photoURL || '',
       role: 'player',
       glicko: {
         rating: 1500,

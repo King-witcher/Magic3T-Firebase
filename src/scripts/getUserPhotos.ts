@@ -9,7 +9,7 @@ export async function getUserPhotos() {
   for (const doc of snapshot.docs) {
     auth.getUser(doc.id).then((user) => {
       users.doc(doc.id).update({
-        photoUrl: user.photoURL,
+        photoURL: user.photoURL,
       })
     })
   }
