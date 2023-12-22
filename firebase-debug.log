@@ -1,0 +1,112 @@
+[debug] [2023-12-22T19:18:55.930Z] ----------------------------------------------------------------------
+[debug] [2023-12-22T19:18:55.932Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\giuse\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions:resetRatings
+[debug] [2023-12-22T19:18:55.933Z] CLI Version:   12.7.0
+[debug] [2023-12-22T19:18:55.933Z] Platform:      win32
+[debug] [2023-12-22T19:18:55.933Z] Node Version:  v20.9.0
+[debug] [2023-12-22T19:18:55.933Z] Time:          Fri Dec 22 2023 16:18:55 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2023-12-22T19:18:55.933Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-22T19:18:55.982Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-22T19:18:55.982Z] > authorizing via signed-in user (giuseppelanna2000@gmail.com)
+[debug] [2023-12-22T19:18:55.983Z] [iam] checking project kw-magic3t for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2023-12-22T19:18:55.983Z] > refreshing access token with scopes: []
+[debug] [2023-12-22T19:18:55.985Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-12-22T19:18:55.985Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-22T19:18:56.169Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-12-22T19:18:56.170Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-12-22T19:18:56.175Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/kw-magic3t:testIamPermissions [none]
+[debug] [2023-12-22T19:18:56.175Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/kw-magic3t:testIamPermissions x-goog-quota-user=projects/kw-magic3t
+[debug] [2023-12-22T19:18:56.175Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/kw-magic3t:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-12-22T19:18:57.035Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/kw-magic3t:testIamPermissions 200
+[debug] [2023-12-22T19:18:57.035Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/kw-magic3t:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2023-12-22T19:18:57.035Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/kw-magic3t/serviceAccounts/kw-magic3t@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-12-22T19:18:57.035Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/kw-magic3t/serviceAccounts/kw-magic3t@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-12-22T19:18:57.939Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/kw-magic3t/serviceAccounts/kw-magic3t@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-12-22T19:18:57.939Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/kw-magic3t/serviceAccounts/kw-magic3t@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'kw-magic3t'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] +  functions: Finished running predeploy script. 
+[debug] [2023-12-22T19:19:05.319Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t [none]
+[debug] [2023-12-22T19:19:05.702Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t 200
+[debug] [2023-12-22T19:19:05.703Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t {"projectId":"kw-magic3t","projectNumber":"586055179641","displayName":"Magic3T","name":"projects/kw-magic3t","resources":{"hostingSite":"kw-magic3t","storageBucket":"kw-magic3t.appspot.com","locationId":"southamerica-east1"},"state":"ACTIVE","etag":"1_85febc4f-3b4a-41f4-8052-1cafd56d2803"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2023-12-22T19:19:05.704Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudfunctions.googleapis.com [none]
+[debug] [2023-12-22T19:19:05.705Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/kw-magic3t
+[debug] [2023-12-22T19:19:05.705Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/runtimeconfig.googleapis.com [none]
+[debug] [2023-12-22T19:19:05.705Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/kw-magic3t
+[debug] [2023-12-22T19:19:05.706Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudbuild.googleapis.com [none]
+[debug] [2023-12-22T19:19:05.706Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudbuild.googleapis.com x-goog-quota-user=projects/kw-magic3t
+[debug] [2023-12-22T19:19:05.707Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/artifactregistry.googleapis.com [none]
+[debug] [2023-12-22T19:19:05.707Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/artifactregistry.googleapis.com x-goog-quota-user=projects/kw-magic3t
+[debug] [2023-12-22T19:19:06.794Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudbuild.googleapis.com 200
+[debug] [2023-12-22T19:19:06.794Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2023-12-22T19:19:06.815Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudfunctions.googleapis.com 200
+[debug] [2023-12-22T19:19:06.815Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2023-12-22T19:19:06.824Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/artifactregistry.googleapis.com 200
+[debug] [2023-12-22T19:19:06.824Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2023-12-22T19:19:06.922Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/runtimeconfig.googleapis.com 200
+[debug] [2023-12-22T19:19:06.923Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/kw-magic3t/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2023-12-22T19:19:06.923Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t/adminSdkConfig [none]
+[debug] [2023-12-22T19:19:07.850Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t/adminSdkConfig 200
+[debug] [2023-12-22T19:19:07.850Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/kw-magic3t/adminSdkConfig {"projectId":"kw-magic3t","storageBucket":"kw-magic3t.appspot.com","locationId":"southamerica-east1"}
+[debug] [2023-12-22T19:19:07.851Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/kw-magic3t/configs [none]
+[debug] [2023-12-22T19:19:08.981Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/kw-magic3t/configs 200
+[debug] [2023-12-22T19:19:08.981Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/kw-magic3t/configs {}
+[debug] [2023-12-22T19:19:08.982Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[debug] [2023-12-22T19:19:09.876Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^5.0.1",
+    "firebase-functions-test": "^3.1.0",
+    "typescript": "^4.9.0"
+  },
+  "private": true
+}
+[debug] [2023-12-22T19:19:09.876Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2023-12-22T19:19:09.877Z] Could not find functions.yaml. Must use http discovery
+[debug] [2023-12-22T19:19:09.882Z] Found firebase-functions binary at 'C:\code\Pessoal\Magic3t-Firebase\Magic3t-Firebase\node_modules\.bin\firebase-functions'
+[info] Serving at port 8563
+
+[debug] [2023-12-22T19:19:10.306Z] Got response from /__/functions.yaml {"endpoints":{"beforeCreate":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"blockingTrigger":{"eventType":"providers/cloud.auth/eventTypes/user.beforeCreate","options":{"accessToken":false,"idToken":false,"refreshToken":false}},"entryPoint":"beforeCreate"},"resetRatings":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"resetRatings"},"deleteHistory":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"deleteHistory"},"beforeSignIn":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"blockingTrigger":{"eventType":"providers/cloud.auth/eventTypes/user.beforeSignIn","options":{"accessToken":false,"idToken":false,"refreshToken":false}},"entryPoint":"beforeSignIn"},"onDeleteUser":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.delete","eventFilters":{"resource":"projects/kw-magic3t"},"retry":false},"labels":{},"entryPoint":"onDeleteUser"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"identitytoolkit.googleapis.com","reason":"Needed for auth blocking functions"}]}
+[info] shutdown requested via /__/quitquitquit
+
+[info] i  functions: preparing . directory for uploading... 
+[info] i  functions: packaged C:\code\Pessoal\Magic3t-Firebase\Magic3t-Firebase (185.91 KB) for uploading 
+[info] i  functions: packaged C:\code\Pessoal\Magic3t-Firebase\Magic3t-Firebase (186.14 KB) for uploading 
+[debug] [2023-12-22T19:19:15.434Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/kw-magic3t/locations/-/functions [none]

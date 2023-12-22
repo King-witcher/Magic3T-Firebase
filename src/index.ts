@@ -56,7 +56,7 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     ),
   )
 
-  await usersCollection.doc('botlmm4').update({
+  await usersCollection.doc('botlmm2').update({
     glicko: {
       deviation: 0,
       rating: 1500,
