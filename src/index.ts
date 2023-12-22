@@ -55,6 +55,15 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
       }),
     ),
   )
+
+  await usersCollection.doc('botlmm4').update({
+    glicko: {
+      deviation: 0,
+      rating: 1500,
+      timestamp: Timestamp.now(),
+    },
+  })
+
   res.send({
     status: 'OK',
     message: 'Hard rating reset successful',
