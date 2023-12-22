@@ -48,7 +48,7 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     snap.docs.map((user) =>
       usersCollection.doc(user.id).update({
         glicko: {
-          deviation: 200,
+          deviation: 350,
           rating: 1500,
           timestamp: Timestamp.now(),
         },
