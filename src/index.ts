@@ -17,7 +17,6 @@ import { firestore } from './firestore'
 import * as functions from 'firebase-functions'
 import { userConverter, usersCollection } from './models/User'
 import { Timestamp } from 'firebase-admin/firestore'
-import { getUserPhotos } from './scripts/getUserPhotos'
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -38,6 +37,119 @@ export const beforeCreate = beforeUserCreated(async (event) => {
       },
     })
   logger.info(`${event.data.displayName} has created an account.`)
+})
+
+async function getRatingConfig() {
+  const snap = await firestore.collection('config').doc('rating').get()
+  return snap.data()!
+}
+
+function shuffle<T>(array: Array<T>) {
+  let currentIndex = array.length,
+    randomIndex
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex--
+
+    // And swap it with the current element.
+    ;[array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ]
+  }
+
+  return array
+}
+
+export const distributeRatings = onRequest(
+  { cors: ['*'] },
+  async (req, res) => {
+    if (req.method !== 'POST') return
+
+    const configPromise = getRatingConfig()
+    const usersSnapPromise = usersCollection.get()
+
+    const [usersSnap, config] = await Promise.all([
+      usersSnapPromise,
+      configPromise,
+    ])
+
+    const bronze1 =
+      config.initialRating - config.ranks.tierSize * config.ranks.initialTier
+
+    shuffle(usersSnap.docs)
+
+    await Promise.all(
+      usersSnap.docs.map((user, index) =>
+        usersCollection.doc(user.id).update({
+          glicko: {
+            deviation: 1,
+            rating:
+              bronze1 +
+              (index / (usersSnap.docs.length - 1)) *
+                4.2 *
+                config.ranks.tierSize,
+            timestamp: Timestamp.now(),
+          },
+        }),
+      ),
+    )
+
+    await usersCollection.doc('botlmm2').update({
+      glicko: {
+        deviation: 0,
+        rating: 1500,
+        timestamp: Timestamp.now(),
+      },
+    })
+
+    res.send({
+      status: 'OK',
+      message: 'Rating distribution successful',
+    })
+  },
+)
+
+export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
+  if (req.method !== 'POST') return
+
+  const configPromise = getRatingConfig()
+  const usersSnapPromise = usersCollection.get()
+
+  const [usersSnap, config] = await Promise.all([
+    usersSnapPromise,
+    configPromise,
+  ])
+  const bronze1 =
+    config.initialRating - config.ranks.tierSize * config.ranks.initialTier
+
+  await Promise.all(
+    usersSnap.docs.map((user) =>
+      usersCollection.doc(user.id).update({
+        glicko: {
+          deviation: 350,
+          rating: bronze1 + Math.random() * 5 * config.ranks.tierSize,
+          timestamp: Timestamp.now(),
+        },
+      }),
+    ),
+  )
+
+  await usersCollection.doc('botlmm2').update({
+    glicko: {
+      deviation: 0,
+      rating: 1500,
+      timestamp: Timestamp.now(),
+    },
+  })
+
+  res.send({
+    status: 'OK',
+    message: 'Rating randomizing successful',
+  })
 })
 
 export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
