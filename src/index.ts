@@ -77,34 +77,26 @@ export const distributeRatings = onRequest(
       configPromise,
     ])
 
+    const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm2')
+
     const bronze1 =
       config.initialRating - config.ranks.tierSize * config.ranks.initialTier
 
-    shuffle(usersSnap.docs)
+    shuffle(docs)
 
     await Promise.all(
-      usersSnap.docs.map((user, index) =>
+      docs.map((user, index) =>
         usersCollection.doc(user.id).update({
           glicko: {
             deviation: 350,
             rating:
               bronze1 +
-              (index / (usersSnap.docs.length - 1)) *
-                4.2 *
-                config.ranks.tierSize,
+              (index / (docs.length - 1)) * 4.2 * config.ranks.tierSize,
             timestamp: Timestamp.now(),
           },
         }),
       ),
     )
-
-    await usersCollection.doc('botlmm2').update({
-      glicko: {
-        deviation: 0,
-        rating: 1500,
-        timestamp: Timestamp.now(),
-      },
-    })
 
     res.send({
       status: 'OK',
@@ -123,11 +115,14 @@ export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     usersSnapPromise,
     configPromise,
   ])
+
+  const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm2')
+
   const bronze1 =
     config.initialRating - config.ranks.tierSize * config.ranks.initialTier
 
   await Promise.all(
-    usersSnap.docs.map((user) =>
+    docs.map((user) =>
       usersCollection.doc(user.id).update({
         glicko: {
           deviation: 350,
@@ -137,14 +132,6 @@ export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
       }),
     ),
   )
-
-  await usersCollection.doc('botlmm2').update({
-    glicko: {
-      deviation: 0,
-      rating: 1500,
-      timestamp: Timestamp.now(),
-    },
-  })
 
   res.send({
     status: 'OK',
