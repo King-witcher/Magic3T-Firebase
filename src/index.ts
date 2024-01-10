@@ -86,7 +86,7 @@ export const distributeRatings = onRequest(
       usersSnap.docs.map((user, index) =>
         usersCollection.doc(user.id).update({
           glicko: {
-            deviation: 1,
+            deviation: 350,
             rating:
               bronze1 +
               (index / (usersSnap.docs.length - 1)) *
