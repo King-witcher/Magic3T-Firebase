@@ -77,7 +77,7 @@ export const distributeRatings = onRequest(
       configPromise,
     ])
 
-    const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm2')
+    const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm1')
 
     const bronze1 =
       config.initialRating - config.ranks.tierSize * config.ranks.initialTier
@@ -115,7 +115,7 @@ export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     configPromise,
   ])
 
-  const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm2')
+  const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm1')
 
   const bronze1 =
     config.initialRating - config.ranks.tierSize * config.ranks.initialTier
@@ -154,7 +154,7 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     ),
   )
 
-  await usersCollection.doc('botlmm2').update({
+  await usersCollection.doc('botlmm1').update({
     glicko: {
       deviation: 0,
       rating: 1500,
