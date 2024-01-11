@@ -90,8 +90,7 @@ export const distributeRatings = onRequest(
           glicko: {
             deviation: 350,
             rating:
-              bronze1 +
-              (index / (docs.length - 1)) * 4.2 * config.ranks.tierSize,
+              bronze1 + (index / (docs.length - 1)) * 4 * config.ranks.tierSize,
             timestamp: Timestamp.now(),
           },
         }),
