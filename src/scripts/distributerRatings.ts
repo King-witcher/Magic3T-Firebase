@@ -1,8 +1,7 @@
 import { onRequest } from 'firebase-functions/v2/https'
-import { getRatingConfig } from '../models/RatingConfig'
-import { usersCollection } from '../models/User'
 import { shuffle } from '../utils'
 import { Timestamp } from 'firebase-admin/firestore'
+import { models } from '../models'
 
 export const distributeRatings = onRequest(
   { cors: ['*'] },
@@ -10,8 +9,8 @@ export const distributeRatings = onRequest(
     if (req.method !== 'POST') return
 
     const [usersSnap, config] = await Promise.all([
-      usersCollection.get(),
-      getRatingConfig(),
+      models.users.collection.get(),
+      models.ratingConfig.get(),
     ])
 
     const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm1')
@@ -22,7 +21,7 @@ export const distributeRatings = onRequest(
 
     await Promise.all(
       docs.map((user, index) =>
-        usersCollection.doc(user.id).update({
+        models.users.collection.doc(user.id).update({
           glicko: {
             deviation: config.maxReliableDeviation - 1,
             rating:

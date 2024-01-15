@@ -1,14 +1,13 @@
 import { Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../firestore'
 import { getConverter } from '../utils'
+import { WithId } from '../types/WithId'
 
-export const userConverter = getConverter<UserData>()
+const userConverter = getConverter<UserData>()
 
-export const usersCollection = firestore
-  .collection('users')
-  .withConverter(userConverter)
+const collection = firestore.collection('users').withConverter(userConverter)
 
-export type UserData = {
+export interface UserData extends WithId {
   nickname: string
   glicko: {
     rating: number
@@ -16,5 +15,12 @@ export type UserData = {
     timestamp: Timestamp
   }
   photoURL: string
-  role: 'player' | 'admin'
+  role: 'player' | 'creator' | 'bot'
+  stats: {
+    wins: number
+    draws: number
+    defeats: number
+  }
 }
+
+export const users = { collection }

@@ -1,4 +1,8 @@
-import { DocumentData, FirestoreDataConverter } from 'firebase-admin/firestore'
+import {
+  DocumentData,
+  FirestoreDataConverter,
+  QueryDocumentSnapshot,
+} from 'firebase-admin/firestore'
 
 export function shuffle<T>(array: Array<T>) {
   let currentIndex = array.length,
@@ -24,8 +28,8 @@ export function getConverter<
   T extends DocumentData,
 >(): FirestoreDataConverter<T> {
   return {
-    fromFirestore(snapshot: DocumentData) {
-      return snapshot as T
+    fromFirestore(snapshot: QueryDocumentSnapshot) {
+      return snapshot.data() as T
     },
     toFirestore(data: T) {
       return data

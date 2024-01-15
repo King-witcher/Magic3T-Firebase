@@ -26,11 +26,11 @@ export interface RatingConfig {
 
 const converter = getConverter<RatingConfig>()
 
-export async function getRatingConfig(): Promise<RatingConfig> {
+async function get(): Promise<RatingConfig> {
   const snap = await firestore
     .collection('config')
-    .doc('rating')
     .withConverter(converter)
+    .doc('rating')
     .get()
 
   const data = snap.data()
@@ -38,3 +38,5 @@ export async function getRatingConfig(): Promise<RatingConfig> {
 
   return data
 }
+
+export const ratingConfig = { get }

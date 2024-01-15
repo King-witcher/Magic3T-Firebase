@@ -1,18 +1,17 @@
 import { onRequest } from 'firebase-functions/v2/https'
-import { usersCollection } from '../models/User'
 import { Timestamp } from 'firebase-admin/firestore'
-import { getRatingConfig } from '../models/RatingConfig'
+import { models } from '../models'
 
 export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
   if (req.method !== 'POST') return
 
   const [ratingConfig, usersSnap] = await Promise.all([
-    getRatingConfig(),
-    usersCollection.get(),
+    models.ratingConfig.get(),
+    models.users.collection.get(),
   ])
 
   await Promise.all([
-    usersCollection.doc('botlmm1').update({
+    models.users.collection.doc('botlmm1').update({
       glicko: {
         deviation: 0,
         rating: ratingConfig.initialRating,
@@ -22,7 +21,7 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     ...usersSnap.docs.map(
       (user) =>
         user.id !== 'botlmm1' &&
-        usersCollection.doc(user.id).update({
+        models.users.collection.doc(user.id).update({
           glicko: {
             deviation: ratingConfig.initialRD,
             rating: ratingConfig.initialRating,
