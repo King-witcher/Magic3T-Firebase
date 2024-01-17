@@ -19,7 +19,8 @@ export const beforeCreate = beforeUserCreated(async (event) => {
 
   await models.users.collection.doc(event.data.uid).create({
     _id: '',
-    nickname: event.data.displayName || '',
+    nickname:
+      event.data.displayName || event.data.email?.split('@')[0] || 'Unnamed',
     photoURL: event.data.photoURL || '',
     role: 'player',
     glicko: {
