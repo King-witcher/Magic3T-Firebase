@@ -1,5 +1,5 @@
 import { firestore } from '../firestore'
-import { WithId } from '../types/WithId'
+import { WithId } from '../types/with-id'
 import { getConverter } from '../utils'
 
 export type Choice = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9

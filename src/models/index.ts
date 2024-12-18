@@ -1,5 +1,5 @@
-import { matches } from './Match'
-import { ratingConfig } from './RatingConfig'
-import { users } from './User'
+import { matches } from './match'
+import { ratingConfig } from './rating-config'
+import { users } from './user'
 
 export const models = { ratingConfig, users, matches }

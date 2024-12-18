@@ -1,6 +1,6 @@
 import { onRequest } from 'firebase-functions/v2/https'
 import { models } from '../models'
-import { UserData } from '../models/User'
+import { UserData } from '../models/user'
 
 export const deleteHistory = onRequest({ cors: ['*'] }, async (req, res) => {
   if (req.method !== 'DELETE') return

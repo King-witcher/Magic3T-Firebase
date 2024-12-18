@@ -4,8 +4,8 @@ import {
   Timestamp,
 } from 'firebase-admin/firestore'
 import { Firestorify } from '../types/Firestorify'
-import { WithId } from '../types/WithId'
-import { OptionalProp } from '../types/OptionalProp'
+import { WithId } from '../types/with-id'
+import { OptionalProp } from '../types/optional-prop'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function convert(data: Record<string, any>) {
