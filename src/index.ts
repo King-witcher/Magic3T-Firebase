@@ -25,7 +25,7 @@ export const beforeCreate = beforeUserCreated(async (event) => {
     experience: 0,
     magic_points: 0,
     perfect_squares: 0,
-    summoner_icon: 0,
+    summoner_icon: 29,
     role: 'player',
     glicko: {
       rating: initialRating,

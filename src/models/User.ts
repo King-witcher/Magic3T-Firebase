@@ -9,7 +9,7 @@ const collection = firestore.collection('users').withConverter(userConverter)
 
 export interface UserData extends WithId {
   identification: {
-    unique_id: string // nickname.toLower() without spaces
+    unique_id: string
     nickname: string
     last_changed: Date
   } | null
