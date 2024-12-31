@@ -3,7 +3,7 @@ import {
   QueryDocumentSnapshot,
   Timestamp,
 } from 'firebase-admin/firestore'
-import { Firestorify } from '../types/Firestorify'
+import { Firestorify } from '../types/firestorify'
 import { WithId } from '../types/with-id'
 import { OptionalProp } from '../types/optional-prop'
 

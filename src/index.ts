@@ -17,7 +17,7 @@ export { randomizeRatings } from './scripts/randomize-ratings'
 export const beforeCreate = beforeUserCreated(async (event) => {
   if (!event.data) throw new Error('auth event without data')
 
-  const { initialRD, initialRating } = await models.ratingConfig.get()
+  const { max_rd, base_score } = await models.ratingConfig.get()
 
   await models.users.collection.doc(event.data?.uid).create({
     _id: '',
@@ -28,8 +28,8 @@ export const beforeCreate = beforeUserCreated(async (event) => {
     summoner_icon: 29,
     role: 'player',
     glicko: {
-      rating: initialRating,
-      deviation: initialRD,
+      rating: base_score,
+      deviation: max_rd,
       timestamp: Timestamp.now(),
     },
     stats: {

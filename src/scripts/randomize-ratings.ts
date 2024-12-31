@@ -10,20 +10,17 @@ export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     models.ratingConfig.get(),
   ])
 
-  const bronze1 =
-    config.initialRating - config.ranks.tierSize * config.ranks.initialTier
+  const bronze4 = config.base_score - config.league_length * config.base_league
 
   await Promise.all(
-    usersSnap.docs.map(
-      (user) =>
-        user.id !== 'botlmm1' &&
-        models.users.collection.doc(user.id).update({
-          glicko: {
-            deviation: config.maxReliableDeviation - 1,
-            rating: bronze1 + Math.random() * 5 * config.ranks.tierSize,
-            timestamp: Timestamp.now(),
-          },
-        }),
+    usersSnap.docs.map((user) =>
+      models.users.collection.doc(user.id).update({
+        glicko: {
+          deviation: config.rd_threshold - 1,
+          rating: bronze4 + Math.random() * 5 * config.league_length,
+          timestamp: Timestamp.now(),
+        },
+      }),
     ),
   )
 

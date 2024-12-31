@@ -10,26 +10,17 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
     models.users.collection.get(),
   ])
 
-  await Promise.all([
-    models.users.collection.doc('botlmm1').update({
-      glicko: {
-        deviation: 0,
-        rating: ratingConfig.initialRating,
-        timestamp: Timestamp.now(),
-      },
-    }),
-    ...usersSnap.docs.map(
-      (user) =>
-        user.id !== 'botlmm1' &&
-        models.users.collection.doc(user.id).update({
-          glicko: {
-            deviation: ratingConfig.initialRD,
-            rating: ratingConfig.initialRating,
-            timestamp: Timestamp.now(),
-          },
-        }),
+  await Promise.all(
+    usersSnap.docs.map((user) =>
+      models.users.collection.doc(user.id).update({
+        glicko: {
+          deviation: ratingConfig.max_rd,
+          rating: ratingConfig.base_score,
+          timestamp: Timestamp.now(),
+        },
+      }),
     ),
-  ])
+  )
 
   res.send({
     status: 'OK',

@@ -13,19 +13,19 @@ export const distributeRatings = onRequest(
       models.ratingConfig.get(),
     ])
 
-    const docs = usersSnap.docs.filter((doc) => doc.id !== 'botlmm1')
+    const docs = usersSnap.docs
     shuffle(docs)
 
     const bronze1 =
-      config.initialRating - config.ranks.tierSize * config.ranks.initialTier
+      config.base_league - config.league_length * config.base_league
 
     await Promise.all(
       docs.map((user, index) =>
         models.users.collection.doc(user.id).update({
           glicko: {
-            deviation: config.maxReliableDeviation - 1,
+            deviation: config.rd_threshold - 1,
             rating:
-              bronze1 + (index / (docs.length - 1)) * 4 * config.ranks.tierSize,
+              bronze1 + (index / (docs.length - 1)) * 4 * config.league_length,
             timestamp: Timestamp.now(),
           },
         }),
