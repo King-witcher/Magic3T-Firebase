@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "",
+    "lint": "biome check src --error-on-warnings --diagnostic-level=warn",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
@@ -19,6 +19,7 @@
     "firebase-functions": "^6.3.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "firebase-functions-test": "^3.4.0",
     "typescript": "^5.8.2"
   },

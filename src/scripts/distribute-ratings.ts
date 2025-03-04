@@ -1,7 +1,7 @@
-import { onRequest } from 'firebase-functions/v2/https'
-import { shuffle } from '../utils'
 import { Timestamp } from 'firebase-admin/firestore'
+import { onRequest } from 'firebase-functions/v2/https'
 import { models } from '../models'
+import { shuffle } from '../utils'
 
 export const distributeRatings = onRequest(
   { cors: ['*'] },
@@ -28,13 +28,13 @@ export const distributeRatings = onRequest(
               bronze1 + (index / (docs.length - 1)) * 4 * config.league_length,
             timestamp: Timestamp.now(),
           },
-        }),
-      ),
+        })
+      )
     )
 
     res.send({
       status: 'OK',
       message: 'Rating distribution successful',
     })
-  },
+  }
 )

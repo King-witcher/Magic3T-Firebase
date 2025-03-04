@@ -1,7 +1,7 @@
 import { Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../firestore'
-import { getConverter } from '../utils'
 import { WithId } from '../types/with-id'
+import { getConverter } from '../utils'
 
 const userConverter = getConverter<UserData>()
 

@@ -1,11 +1,11 @@
-import { HttpsError, onRequest } from 'firebase-functions/v2/https'
+import { Timestamp } from 'firebase-admin/firestore'
 import * as logger from 'firebase-functions/logger'
+import { HttpsError, onRequest } from 'firebase-functions/v2/https'
 import {
   beforeUserCreated,
   beforeUserSignedIn,
 } from 'firebase-functions/v2/identity'
 import { firestore } from './firestore'
-import { Timestamp } from 'firebase-admin/firestore'
 import { models } from './models'
 
 export { distributeRatings } from './scripts/distribute-ratings'

@@ -16,8 +16,8 @@ export const deleteHistory = onRequest({ cors: ['*'] }, async (req, res) => {
     .then(async (matchesSnap) => {
       await Promise.all(
         matchesSnap.docs.map((doc) =>
-          models.matches.collection.doc(doc.id).delete(),
-        ),
+          models.matches.collection.doc(doc.id).delete()
+        )
       )
     })
 
@@ -26,8 +26,8 @@ export const deleteHistory = onRequest({ cors: ['*'] }, async (req, res) => {
       usersSnap.docs.map((doc) =>
         models.users.collection.doc(doc.id).update({
           stats,
-        }),
-      ),
+        })
+      )
     )
   })
 

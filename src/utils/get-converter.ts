@@ -4,9 +4,10 @@ import {
   Timestamp,
 } from 'firebase-admin/firestore'
 import { Firestorify } from '../types/firestorify'
-import { WithId } from '../types/with-id'
 import { OptionalProp } from '../types/optional-prop'
+import { WithId } from '../types/with-id'
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function convert(data: Record<string, any>) {
   for (const [key, value] of Object.entries(data)) {
     if (value instanceof Timestamp) {

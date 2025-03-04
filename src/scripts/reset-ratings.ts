@@ -1,5 +1,5 @@
-import { onRequest } from 'firebase-functions/v2/https'
 import { Timestamp } from 'firebase-admin/firestore'
+import { onRequest } from 'firebase-functions/v2/https'
 import { models } from '../models'
 
 export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
@@ -18,8 +18,8 @@ export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
           rating: ratingConfig.base_score,
           timestamp: Timestamp.now(),
         },
-      }),
-    ),
+      })
+    )
   )
 
   res.send({

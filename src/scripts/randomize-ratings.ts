@@ -20,8 +20,8 @@ export const randomizeRatings = onRequest({ cors: ['*'] }, async (req, res) => {
           rating: bronze4 + Math.random() * 5 * config.league_length,
           timestamp: Timestamp.now(),
         },
-      }),
-    ),
+      })
+    )
   )
 
   res.send({
