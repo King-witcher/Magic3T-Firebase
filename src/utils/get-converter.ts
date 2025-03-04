@@ -7,7 +7,6 @@ import { Firestorify } from '../types/firestorify'
 import { WithId } from '../types/with-id'
 import { OptionalProp } from '../types/optional-prop'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function convert(data: Record<string, any>) {
   for (const [key, value] of Object.entries(data)) {
     if (value instanceof Timestamp) {
