@@ -41,6 +41,9 @@ jobs:
       - name: Prepare Google Credentials
         run: echo "${{ secrets.SERVICE_ACCOUNT_CREDENTIAL }}" > $GOOGLE_APPLICATION_CREDENTIALS
 
+      - name: Login on Firebase
+        run: firebase login --non-interactive --debug
+
       - name: Deploy Functions
         run: firebase deploy --only functions --non-interactive --debug
 
