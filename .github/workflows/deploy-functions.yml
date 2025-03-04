@@ -9,7 +9,7 @@ jobs:
   deploy-functions:
     runs-on: ubuntu-latest
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: ~/gcp-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: $HOME/gcp-key.json
 
     steps:
       - name: Checkout code
