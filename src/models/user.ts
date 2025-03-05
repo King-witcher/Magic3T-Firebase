@@ -3,7 +3,7 @@ import { firestore } from '../firestore'
 import { WithId } from '../types/with-id'
 import { getConverter } from '../utils'
 
-const userConverter = getConverter<UserData>()
+export const userConverter = getConverter<UserData>()
 
 const collection = firestore.collection('users').withConverter(userConverter)
 
