@@ -42,7 +42,7 @@ jobs:
         run: echo "${{ secrets.SERVICE_ACCOUNT_CREDENTIAL }}" | base64 --decode > $GOOGLE_APPLICATION_CREDENTIALS
 
       - name: Deploy Functions
-        run: firebase deploy --only functions --non-interactive --debug
+        run: firebase deploy --only functions --non-interactive
 
       - name: Cleanup Google Credentials
         if: success() || failure()
