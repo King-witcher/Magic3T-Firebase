@@ -1,11 +1,11 @@
 import { onRequest } from 'firebase-functions/v2/https'
 import { models } from '../models'
-import { UserData } from '../models/user'
+import { UserModel } from '../models/user'
 
 export const deleteHistory = onRequest({ cors: ['*'] }, async (req, res) => {
   if (req.method !== 'DELETE') return
 
-  const stats: UserData['stats'] = {
+  const stats: UserModel['stats'] = {
     defeats: 0,
     draws: 0,
     wins: 0,

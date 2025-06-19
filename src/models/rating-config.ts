@@ -1,7 +1,8 @@
 import { firestore } from '../firestore'
+import { WithId } from '../types/with-id'
 import { getConverter } from '../utils'
 
-export interface RatingConfig {
+export interface RatingConfigModel extends WithId {
   /** How much time a player with RD=40 would take to go back to 350, in days. */
   rd_inflation_time: number
 
@@ -22,11 +23,20 @@ export interface RatingConfig {
 
   /** The league where a player would be with the base score. This number can be fractionary. */
   base_league: number
+
+  /** The lowest possible K value for elo system. */
+  final_k_value: number
+
+  /** The initial user K value for elo system. */
+  initial_k_value: number
+
+  /** The factor by which the K value is deflated towards the final K value after each match. */
+  k_deflation_factor: number
 }
 
-const converter = getConverter<RatingConfig>()
+const converter = getConverter<RatingConfigModel>()
 
-async function get(): Promise<RatingConfig> {
+async function get(): Promise<RatingConfigModel> {
   const snap = await firestore
     .collection('config')
     .withConverter(converter)
