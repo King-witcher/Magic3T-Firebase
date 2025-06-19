@@ -1,5 +1,3 @@
-import { DocumentData } from 'firebase-admin/firestore'
-
-export interface WithId extends DocumentData {
+export interface WithId {
   _id: string
 }

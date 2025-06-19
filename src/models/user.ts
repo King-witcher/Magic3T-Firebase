@@ -1,15 +1,26 @@
-import { Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../firestore'
 import { WithId } from '../types/with-id'
 import { getConverter } from '../utils'
 
-export const userConverter = getConverter<UserData>()
+export const userConverter = getConverter<UserModel>()
 
 const collection = firestore.collection('users').withConverter(userConverter)
 
-export interface UserData extends WithId {
+export interface EloModel {
+  score: number
+  matches: number
+  k: number
+}
+
+export interface GlickoModel {
+  rating: number
+  deviation: number
+  timestamp: Date
+}
+
+export interface UserModel extends WithId {
   identification: {
-    unique_id: string
+    unique_id: string // nickname.toLower() without spaces
     nickname: string
     last_changed: Date
   } | null
@@ -19,19 +30,22 @@ export interface UserData extends WithId {
   perfect_squares: number // earned playing
   summoner_icon: number
 
-  role: 'player' | 'creator' | 'bot'
+  role: UserRole
 
-  glicko: {
-    rating: number
-    deviation: number
-    timestamp: Timestamp
-  }
+  elo: EloModel | null
+  glicko: GlickoModel | null
 
   stats: {
     wins: number
     draws: number
     defeats: number
   }
+}
+
+export enum UserRole {
+  Player = 'player',
+  Creator = 'creator',
+  Bot = 'bot',
 }
 
 export const users = { collection }

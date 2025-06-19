@@ -1,9 +1,10 @@
 import {
+  DocumentData,
   FirestoreDataConverter,
   QueryDocumentSnapshot,
   Timestamp,
+  WithFieldValue,
 } from 'firebase-admin/firestore'
-import { Firestorify } from '../types/firestorify'
 import { OptionalProp } from '../types/optional-prop'
 import { WithId } from '../types/with-id'
 
@@ -29,7 +30,7 @@ export function getConverter<T extends WithId>(): FirestoreDataConverter<T> {
       }
     },
 
-    toFirestore: (data: T): Firestorify<T> => {
+    toFirestore: (data: T): WithFieldValue<DocumentData> => {
       const output: OptionalProp<T, '_id'> = { ...data }
       delete output._id
       return output

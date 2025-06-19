@@ -8,18 +8,17 @@ import {
 import { firestore } from './firestore'
 import { models } from './models'
 
-export { distributeRatings } from './scripts/distribute-ratings'
 export { deleteHistory } from './scripts/delete-history'
 export { resetRatings } from './scripts/reset-ratings'
 import * as functions1 from 'firebase-functions/v1'
-import { userConverter } from './models/user'
-export { randomizeRatings } from './scripts/randomize-ratings'
+import { userConverter, UserRole } from './models/user'
 
 // Set the user's display name to their nickname
 export const beforeCreate = beforeUserCreated(async (event) => {
   if (!event.data) throw new Error('auth event without data')
 
-  const { max_rd, base_score } = await models.ratingConfig.get()
+  const { max_rd, base_score, initial_k_value } =
+    await models.ratingConfig.get()
 
   await models.users.collection
     .withConverter(userConverter)
@@ -31,11 +30,16 @@ export const beforeCreate = beforeUserCreated(async (event) => {
       magic_points: 0,
       perfect_squares: 0,
       summoner_icon: 29,
-      role: 'player',
+      role: UserRole.Player,
       glicko: {
         rating: base_score,
         deviation: max_rd,
         timestamp: Timestamp.now(),
+      },
+      elo: {
+        score: base_score,
+        k: initial_k_value,
+        matches: 0,
       },
       stats: {
         wins: 0,
