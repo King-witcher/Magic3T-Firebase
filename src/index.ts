@@ -11,7 +11,7 @@ import { models } from './models'
 export { deleteHistory } from './scripts/delete-history'
 export { resetRatings } from './scripts/reset-ratings'
 import * as functions1 from 'firebase-functions/v1'
-import { userConverter, UserRole } from './models/user'
+import { UserRole, userConverter } from './models/user'
 
 // Set the user's display name to their nickname
 export const beforeCreate = beforeUserCreated(async (event) => {
