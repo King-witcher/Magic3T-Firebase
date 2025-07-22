@@ -1,7 +1,7 @@
 import { Timestamp, UpdateData } from 'firebase-admin/firestore'
 import { onRequest } from 'firebase-functions/v2/https'
 import { models } from '../models'
-import { UserModel } from '../models/user'
+import { UserModel } from '@magic3t/types'
 
 export const resetRatings = onRequest({ cors: ['*'] }, async (req, res) => {
   if (req.method !== 'POST') return

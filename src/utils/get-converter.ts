@@ -6,7 +6,7 @@ import {
   WithFieldValue,
 } from 'firebase-admin/firestore'
 import { OptionalProp } from '../types/optional-prop'
-import { WithId } from '../types/with-id'
+import { WithId } from '@magic3t/types'
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function convert(data: Record<string, any>) {

@@ -21,6 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@giuseppelanna/biomejs-configs": "^3.0.2",
+    "@magic3t/types": "^3.3.1",
     "firebase-functions-test": "^3.4.0",
     "typescript": "^5.8.2"
   },
